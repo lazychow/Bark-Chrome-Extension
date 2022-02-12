@@ -1,0 +1,41 @@
+module.exports = {
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 6,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: ['plugin:vue/essential', '@vue/typescript/recommended', 'eslint:recommended'],
+  globals: {
+    DESCRIPT: false,
+  },
+  rules: {
+    'function-paren-newline': ['warn', 'consistent'],
+    'no-undef': 'off',
+    'space-before-function-paren': 0,
+    indent: 0,
+    'no-multi-spaces': 0,
+    'no-console': 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    quotes: 'off',
+    'comma-dangle': 'off',
+    'no-multiple-empty-lines': 'off',
+    eqeqeq: 'off',
+    'no-eval': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/no-loss-of-precision': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+    '@typescript-eslint/no-redeclare': 'error',
+    'no-redeclare': 'off',
+  },
+}
