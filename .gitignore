@@ -1,4 +1,5 @@
 node_modules
 dist
+Bark-Chrome-Extension
 yarn.lock
 package-lock.json

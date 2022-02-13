@@ -11,7 +11,7 @@ import ServerLine from './ServerLine.vue'
 import ListItem from '../ListItem.vue'
 import { OptionSetting as setting } from '../settings'
 /**
- * @typedef {import('@/settings/define').BarkServer} BarkServer
+ * @typedef {import('@/common/settings/define').BarkServer} BarkServer
  */
 export default {
   components: {

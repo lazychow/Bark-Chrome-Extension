@@ -44,6 +44,8 @@ chrome.browserAction.onClicked.addListener(function (tab) {
   )
 })
 
+
+
 //send selected text
 function getword(info, tab) {
   console.log('menu ' + info.menuItemId + ' was clicked.')

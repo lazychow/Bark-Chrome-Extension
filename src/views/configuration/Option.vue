@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div class="config-title">base</div>
-    <vue-switch class="config-item" v-model="autoCopy">
+    <div class="config-title">Bark Chrome Extension Settings</div>
+    <!-- <vue-switch class="config-item" v-model="autoCopy">
       <list-item title="AutoCopy" description="Auto Copy Flag" />
     </vue-switch>
     <div class="config-item">
@@ -10,7 +10,7 @@
         <VueGroupButton class="primary" value="clipboard">{{ 'clipboard' }}</VueGroupButton>
         <VueGroupButton class="primary" value="normal">{{ 'normal' }}</VueGroupButton>
       </vue-group>
-    </div>
+    </div> -->
     <div class="config-item">
       <servers />
     </div>
@@ -21,14 +21,15 @@
 </template>
 
 <script>
-import ListItem from './ListItem.vue'
+// @ts-check
+// import ListItem from './ListItem.vue'
 import Servers from './server/Servers.vue'
 import GroupList from './groups/GroupList.vue'
 import { OptionSetting as setting } from './settings'
 export default {
   name: 'App',
   components: {
-    ListItem,
+    // ListItem,
     Servers,
     GroupList,
   },

@@ -1,17 +1,14 @@
 <template>
-  <div class="server-line">
-    <VueFormField status-icon>
-      <vue-input
-        :class="inputClass"
-        :disabled="!editing"
-        placeholder="device name"
-        v-model="group.name"
-        :status="nameMessage ? 'danger' : ''"
-      />
-      <span slot="subtitle">{{ nameMessage }}</span>
-    </VueFormField>
-    <vue-button v-if="editing" @click="save()">save</vue-button>
-    <vue-button v-if="!editing" @click="editing = true">edit</vue-button>
+  <div class="group-line-wrapper">
+    <div class="group-line">
+      <VueFormField>
+        <vue-input :class="inputClass" :disabled="!editing" placeholder="device name" v-model="group.name" />
+      </VueFormField>
+      <vue-button v-if="editing" @click="save()">save</vue-button>
+      <vue-button v-if="!editing" @click="editing = true">edit</vue-button>
+      <vue-button v-if="!editing" @click="del()">delete</vue-button>
+    </div>
+    <div class="error-info vue-ui-text danger">{{ error }}</div>
   </div>
 </template>
 
@@ -25,7 +22,7 @@ import { OptionSetting } from '../settings'
  * @typedef {import('vue/types/options').PropType<T>} PropType<T>
  */
 /**
- * @typedef {import('@/settings/define').BarkGroup} BarkGroup
+ * @typedef {import('@/common/settings/define').BarkGroup} BarkGroup
  */
 export default {
   model: {
@@ -54,6 +51,7 @@ export default {
         id: '',
         name: '',
       },
+      error: '',
     }
   },
   watch: {
@@ -88,34 +86,46 @@ export default {
     },
     async save() {
       if (this.nameMessage) {
+        this.error = this.nameMessage
         return
       }
+      this.error = ''
       const group = pure(this.group)
-      group.id = new Date().getTime().toString()
-      OptionSetting.addGroup(group)
+      OptionSetting.updateGroup(group)
       this.group = {
         id: '',
         name: '',
       }
+    },
+    del() {
+      console.info(this.group.id)
+      OptionSetting.removeGroup(this.group.id)
     },
   },
 }
 </script>
 
 <style>
-.server-line {
+.group-line-wrapper > .error-info {
+  display: block;
+  flex: none;
+  width: 100%;
+  padding-left: 10px;
+}
+.group-line {
   display: flex;
 }
-.server-line .vue-ui-form-field {
+.group-line .vue-ui-form-field {
   flex: 1;
 }
-.server-line > * {
+.group-line > * {
   margin-right: 10px;
 }
-.server-line > *:last-child {
+.group-line > *:last-child {
   margin-right: 0;
 }
-.server-line > button {
+.group-line > button {
   margin-top: 6px;
+  min-width: 70px;
 }
 </style>

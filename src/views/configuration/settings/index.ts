@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { pure } from '../../../common'
-import { BarkGroup, BarkServer, BarkSetting } from '../../../settings/define'
-import { changeAndNotifySetting, syncSetting } from '../../../settings/sync'
+import { BarkGroup, BarkServer, BarkSetting } from '../../../common/settings/define'
+import { changeAndNotifySetting, syncSetting } from '../../../common/settings/sync'
 
 const keys = ['servers', 'groups']
 class Setting {
@@ -34,7 +34,22 @@ class Setting {
     changeAndNotifySetting(this._setting)
   }
 
-  addServer(server: BarkServer) {
+  updateServer(server: BarkServer) {
+    if (!server.id) {
+      server.id = new Date().getTime().toString()
+      this.addServer(server)
+    } else {
+      const servers = this._setting.servers || []
+      servers.forEach((ser, index) => {
+        if (server.id == ser.id) {
+          servers[index] = server
+        }
+      })
+      this._setting.servers = servers
+      changeAndNotifySetting(this._setting)
+    }
+  }
+  private addServer(server: BarkServer) {
     const servers = this._setting.servers || []
     servers.push(server)
     this._setting.servers = servers
@@ -56,11 +71,27 @@ class Setting {
     changeAndNotifySetting(this._setting)
   }
 
-  addGroup(group: BarkGroup) {
+  updateGroup(group: BarkGroup) {
     const groups = this._setting.groups || []
-    groups.push(group)
+    if (group.id) {
+      groups.forEach((gro, index) => {
+        if (group.id == gro.id) {
+          groups[index] = group
+        }
+      })
+    } else {
+      group.id = new Date().getTime().toString()
+      groups.push(group)
+    }
+
     this._setting.groups = groups
     console.info(pure(this._setting))
+    changeAndNotifySetting(this._setting)
+  }
+
+  removeGroup(id: string) {
+    const groups = (this._setting.groups || []).filter((group) => group.id != id)
+    this._setting.groups = groups
     changeAndNotifySetting(this._setting)
   }
 

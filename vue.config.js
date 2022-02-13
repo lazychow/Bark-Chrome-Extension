@@ -21,6 +21,7 @@ pageNames.forEach((pageName) => {
   }
 })
 module.exports = {
+  outputDir:'Bark-Chrome-Extension',
   filenameHashing: false,
   chainWebpack(config) {
     config.optimization.minimize(true)

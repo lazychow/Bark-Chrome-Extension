@@ -1,5 +1,5 @@
-import { BarkGroup, BarkServer, BarkSetting } from '../../settings/define'
-import { goSetting } from './menuAction'
+import { BarkGroup, BarkServer, BarkSetting } from '@/common/settings/define'
+import { goSetting, Menus } from './const'
 
 export async function updateContextMenus(setting: BarkSetting) {
   await removeAllMenu()
@@ -7,7 +7,7 @@ export async function updateContextMenus(setting: BarkSetting) {
   if (servers.length == 0) {
     createMenu({
       title: 'Configure',
-      id: 'bark_config',
+      id: Menus.Config,
       onclick: goSetting,
     })
     return
@@ -18,12 +18,12 @@ export async function updateContextMenus(setting: BarkSetting) {
   }
   createMenu({
     title: `Send to`,
-    id: 'bark_all',
+    id: Menus.Root,
   })
   createMenu({
     title: `Send '%s' to`,
     contexts: ['selection', 'image'],
-    id: 'selection#bark_all',
+    id: Menus.RootSelection,
   })
   servers.forEach((server) => {
     createServerMenus(server, groups)
@@ -70,6 +70,14 @@ function createServerMenus(server: BarkServer, groups: BarkGroup[]) {
 }
 
 function createGroup(server: BarkServer, groups: BarkGroup[]) {
+  createMenu(
+    {
+      title: `Default`,
+      id: `bark_${server.id}_origin`,
+      parentId: `bark_${server.id}`,
+    },
+    true,
+  )
   groups.forEach((group) => {
     createMenu(
       {

@@ -11,7 +11,7 @@ import GroupLine from './GroupLine.vue'
 import ListItem from '../ListItem.vue'
 import { OptionSetting as setting } from '../settings'
 /**
- * @typedef {import('@/settings/define').BarkGroup} BarkGroup
+ * @typedef {import('@/common/settings/define').BarkGroup} BarkGroup
  */
 export default {
   components: {
