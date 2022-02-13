@@ -4,6 +4,12 @@ name: CI
 
 # Controls when the workflow will run
 on:
+  repository_dispatch:
+    inputs:
+      releaseName:
+        description: 'Release name'
+        required: true
+        default: ''
   # Triggers the workflow on push or pull request events but only for the master branch
   #push:
     #branches: [ master ]
@@ -19,18 +25,26 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@master
+        with:
+          node-version: "16.x"
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Setup Dependencies & Build
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          npm install
+          npm run build
+          tar -zcvf ./Bark-Chrome-Extension.tgz ./Bark-Chrome-Extension
+
+      - uses: ncipollo/release-action@v1
+        with:
+          release_name: ${{ releaseName }}
+          artifacts: "Bark-Chrome-Extension.tgz"
+          token: ${{ secrets.GITHUB_TOKEN }}
