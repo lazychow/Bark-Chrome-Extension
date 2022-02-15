@@ -35,13 +35,13 @@ module.exports = {
           priority: -10,
           chunks: 'initial',
         },
-        common: {
-          name: 'chunk-common',
-          minChunks: 2,
-          priority: -20,
-          chunks: 'initial',
-          reuseExistingChunk: true,
-        },
+        // common: {
+        //   name: 'chunk-common',
+        //   minChunks: 2,
+        //   priority: -20,
+        //   chunks: 'initial',
+        //   reuseExistingChunk: true,
+        // },
       },
     })
 
