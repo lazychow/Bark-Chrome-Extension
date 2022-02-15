@@ -21,9 +21,30 @@ pageNames.forEach((pageName) => {
   }
 })
 module.exports = {
-  outputDir:'Bark-Chrome-Extension',
+  outputDir: 'Bark-Chrome-Extension',
   filenameHashing: false,
+  /**
+   * @param {import('webpack-chain')} config
+   */
   chainWebpack(config) {
+    config.optimization.splitChunks({
+      cacheGroups: {
+        vendors: {
+          name: 'chunk-vue',
+          test: /[\\/]node_modules[\\/](@?vue)/,
+          priority: -10,
+          chunks: 'initial',
+        },
+        common: {
+          name: 'chunk-common',
+          minChunks: 2,
+          priority: -20,
+          chunks: 'initial',
+          reuseExistingChunk: true,
+        },
+      },
+    })
+
     config.optimization.minimize(true)
     config.devtool(false)
     pageNames.forEach((pageName) => {
