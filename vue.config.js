@@ -3,9 +3,9 @@
  */
 const pageNames = ['configuration', 'background', 'contentScript']
 const pages = {
-  contentScript: {
-    entry: 'src/views/contentScript/index.ts',
-  },
+  // contentScript: {
+  //   entry: 'src/views/contentScript/index.ts',
+  // },
 }
 pageNames.forEach((pageName) => {
   pages[pageName] = {
@@ -32,16 +32,16 @@ module.exports = {
         vendors: {
           name: 'chunk-vue',
           test: /[\\/]node_modules[\\/](@?vue)/,
+          minChunks: 2,
+          priority: -20,
+          chunks: 'initial',
+          reuseExistingChunk: true,
+        },
+        common: {
+          name: 'chunk-common',
           priority: -10,
           chunks: 'initial',
         },
-        // common: {
-        //   name: 'chunk-common',
-        //   minChunks: 2,
-        //   priority: -20,
-        //   chunks: 'initial',
-        //   reuseExistingChunk: true,
-        // },
       },
     })
 
@@ -52,7 +52,6 @@ module.exports = {
       config.plugins.delete(`prefetch-${pageName}`)
     })
     config.plugins.delete('html-contentScript')
-    // config.entry("app").clear().add("./src/main.js");
   },
   pages: pages,
 }
