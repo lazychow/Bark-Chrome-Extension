@@ -37,11 +37,11 @@ module.exports = {
           chunks: 'initial',
           reuseExistingChunk: true,
         },
-        common: {
-          name: 'chunk-common',
-          priority: -10,
-          chunks: 'initial',
-        },
+        // common: {
+        //   name: 'chunk-common',
+        //   priority: -10,
+        //   chunks: 'initial',
+        // },
       },
     })
 

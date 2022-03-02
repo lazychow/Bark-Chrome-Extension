@@ -6,7 +6,8 @@
     "serve": "vue-cli-service build --watch --inline-vue ",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "fix": "vue-cli-service lint --fix"
+    "fix": "vue-cli-service lint --fix",
+    "package": "npm run build && tar -cvf ./Bark-Chrome-Extension.tar ./Bark-Chrome-Extension"
   },
   "devDependencies": {
     "@types/chrome": "0.0.176",
