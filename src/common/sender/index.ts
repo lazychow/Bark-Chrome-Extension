@@ -37,7 +37,7 @@ function request(option: RequestOption) {
         resolve(xmlHttp.responseText)
       }
     }
-    xmlHttp.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+    // xmlHttp.setRequestHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
     xmlHttp.open('GET', option.url, true) // true for asynchronous
     xmlHttp.send(null)
   })
